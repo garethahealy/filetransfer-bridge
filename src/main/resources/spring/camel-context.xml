@@ -25,11 +25,33 @@
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
+    <bean id="lengthValidatorProcessor" class="com.garethahealy.filetransferbridge.dtuprocessors.LengthValidatorProcessor"/>
+    <bean id="endpointResolverProcessor" class="com.garethahealy.filetransferbridge.dtuprocessors.EndpointResolverProcessor"/>
+
+
     <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
 
-        <route id="todo">
-            <from uri="timer:foo?period=2000"/>
-            <log message="todo"/>
+        <route id="consume">
+            <from uri="sftp://{{garethahealy.sftp.username}}@{{garethahealy.sftp.host}}:22/{{garethahealy.sftp.homedir}}?password={{garethahealy.sftp.password}}&amp;binary=true&amp;streamDownload=true&amp;preMove=.inprogress&amp;move=.complete&amp;readLock=changed&amp;charset=utf-8"/>
+            <log message="Found: ${header.CamelFileName}"/>
+            <process ref="lengthValidatorProcessor"/>
+            <process ref="endpointResolverProcessor"/>
+            <setHeader headerName="SftpUri">
+                <simple>sftp://${header.producer.username}@${header.producer.host}:22/${header.producer.directory}?password=${header.producer.password}&amp;binary=true&amp;charset=utf-8</simple>
+            </setHeader>
+            <toD uri="${header.SftpUri}"/>
+        </route>
+
+        <route id="produceTestFile">
+            <from uri="timer:produceTestFile?period=10s"/>
+            <setBody>
+                <constant>test</constant>
+            </setBody>
+            <setHeader headerName="CamelFileName">
+                <simple>E${header.CamelTimerCounter}23456789123-test.xml</simple>
+            </setHeader>
+            <log message="Writing: ${header.CamelFileName}"/>
+            <to uri="sftp://{{garethahealy.sftp.username}}@{{garethahealy.sftp.host}}:22/{{garethahealy.sftp.homedir}}?password={{garethahealy.sftp.password}}&amp;binary=true&amp;streamDownload=true&amp;preMove=.processing&amp;readLock=changed&amp;charset=utf-8"/>
         </route>
 
     </camelContext>
