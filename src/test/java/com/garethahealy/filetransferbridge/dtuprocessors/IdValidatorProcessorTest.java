@@ -29,11 +29,20 @@ import org.junit.Test;
 public class IdValidatorProcessorTest extends ExchangeTestSupport {
 
     @Test
-    public void handlesValidFileName() throws Exception {
+    public void handlesValidFileNameForE() throws Exception {
         Exchange exchange = createExchange();
         Message in = exchange.getIn();
         in.setHeader(Exchange.FILE_NAME_ONLY, "Ethis_file_is_long_enough");
 
+        Processor processor = new IdValidatorProcessor();
+        processor.process(exchange);
+    }
+
+    @Test
+    public void handlesValidFileNameForP() throws Exception {
+        Exchange exchange = createExchange();
+        Message in = exchange.getIn();
+        in.setHeader(Exchange.FILE_NAME_ONLY, "Pthis_file_is_long_enough");
 
         Processor processor = new IdValidatorProcessor();
         processor.process(exchange);
