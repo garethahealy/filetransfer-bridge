@@ -20,15 +20,21 @@
 package com.garethahealy.filetransferbridge.dtuprocessors;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 import org.apache.camel.Processor;
 
 public class EndpointResolverProcessor implements Processor {
     
     @Override
     public void process(Exchange exchange) throws Exception {
-        exchange.getIn().setHeader("producer.username", exchange.getContext().resolvePropertyPlaceholders("{{garethahealy.sftp.username}}"));
-        exchange.getIn().setHeader("producer.password", exchange.getContext().resolvePropertyPlaceholders("{{garethahealy.sftp.password}}"));
-        exchange.getIn().setHeader("producer.host", exchange.getContext().resolvePropertyPlaceholders("{{garethahealy.sftp.host}}"));
-        exchange.getIn().setHeader("producer.directory", exchange.getContext().resolvePropertyPlaceholders("{{garethahealy.sftp.homedir}}/e2e"));
+        Message in = exchange.getIn();
+        String currentFileName = in.getHeader(Exchange.FILE_NAME, String.class);
+
+        //i.e.: Do the magic which decides where the file should be written to and how, maybe this comes from a DB?
+        in.setHeader("producer.username", exchange.getContext().resolvePropertyPlaceholders("{{garethahealy.sftp.username}}"));
+        in.setHeader("producer.password", exchange.getContext().resolvePropertyPlaceholders("{{garethahealy.sftp.password}}"));
+        in.setHeader("producer.host", exchange.getContext().resolvePropertyPlaceholders("{{garethahealy.sftp.host}}"));
+        in.setHeader("producer.directory", exchange.getContext().resolvePropertyPlaceholders("{{garethahealy.sftp.homedir}}/e2e"));
+        in.setHeader(Exchange.FILE_NAME, "mvd-" + currentFileName);
     }
 }
