@@ -29,7 +29,7 @@
     <bean id="idValidatorProcessor" class="com.garethahealy.filetransferbridge.dtuprocessors.IdValidatorProcessor"/>
     <bean id="endpointResolverProcessor" class="com.garethahealy.filetransferbridge.dtuprocessors.EndpointResolverProcessor"/>
 
-    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+    <camelContext id="camelContext" xmlns="http://camel.apache.org/schema/spring">
 
         <route id="consume">
             <from uri="sftp://{{garethahealy.sftp.username}}@{{garethahealy.sftp.host}}:22/{{garethahealy.sftp.homedir}}?password={{garethahealy.sftp.password}}&amp;binary=true&amp;streamDownload=true&amp;preMove=.inprogress&amp;move=.complete&amp;readLock=changed&amp;charset=utf-8"/>
