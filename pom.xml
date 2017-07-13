@@ -93,4 +93,13 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>openshift</id>
+            <properties>
+                <maven.source.skip>true</maven.source.skip>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>
