@@ -14,4 +14,4 @@ Simple example showing SFTP bridge via a Apache Camel
 
 2.Deploy filetransfer-bridge
 
-    oc process s2i-spring-boot-camel-xml -p GIT_REPO=https://github.com/garethahealy/filetransfer-bridge.git -p APP_NAME=filetransfer-bridge -p GIT_REF=master -n openshift | oc create -f -
+    oc process s2i-spring-boot-camel-xml -p GIT_REPO=https://github.com/garethahealy/filetransfer-bridge.git -p APP_NAME=filetransfer-bridge -p GIT_REF=master -p MAVEN_ARGS_APPEND=-Popenshift -n openshift | oc create -f -
