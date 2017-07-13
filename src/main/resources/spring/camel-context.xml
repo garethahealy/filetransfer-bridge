@@ -38,7 +38,7 @@
             <process ref="idValidatorProcessor"/>
             <process ref="endpointResolverProcessor"/>
             <setHeader headerName="SftpUri">
-                <simple>sftp://${header.producer.username}@${header.producer.host}:22/${header.producer.directory}?password=${header.producer.password}&amp;binary=true&amp;charset=utf-8</simple>
+                <simple>sftp://${header.producer.username}@${header.producer.host}:22/${header.producer.directory}?password=${header.producer.password}&amp;disconnect=true&amp;binary=true&amp;charset=utf-8</simple>
             </setHeader>
             <toD uri="${header.SftpUri}"/>
         </route>
