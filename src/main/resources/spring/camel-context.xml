@@ -32,13 +32,13 @@
     <camelContext id="camelContext" xmlns="http://camel.apache.org/schema/spring">
 
         <route id="consume">
-            <from uri="sftp://{{garethahealy.sftp.username}}@{{garethahealy.sftp.host}}:22/{{garethahealy.sftp.homedir}}?password={{garethahealy.sftp.password}}&amp;binary=true&amp;streamDownload=true&amp;preMove=.inprogress&amp;move=.complete&amp;readLock=changed&amp;charset=utf-8"/>
+            <from uri="sftp://{{garethahealy.sftp.username}}@{{garethahealy.sftp.host}}:22/{{garethahealy.sftp.homedir}}?password={{garethahealy.sftp.password}}&amp;streamDownload=true&amp;preMove=.inprogress&amp;move=.complete&amp;readLock=changed&amp;charset=utf-8"/>
             <log message="Found: ${header.CamelFileName}"/>
             <process ref="lengthValidatorProcessor"/>
             <process ref="idValidatorProcessor"/>
             <process ref="endpointResolverProcessor"/>
             <setHeader headerName="SftpUri">
-                <simple>sftp://${header.producer.username}@${header.producer.host}:22/${header.producer.directory}?password=${header.producer.password}&amp;disconnect=true&amp;binary=true&amp;charset=utf-8</simple>
+                <simple>sftp://${header.producer.username}@${header.producer.host}:22/${header.producer.directory}?password=${header.producer.password}&amp;disconnect=true&amp;fileExist=Fail&amp;tempPrefix=.inprogress&amp;charset=utf-8</simple>
             </setHeader>
             <toD uri="${header.SftpUri}"/>
         </route>
@@ -52,7 +52,7 @@
                 <simple>E${header.CamelTimerCounter}23456789123-test.xml</simple>
             </setHeader>
             <log message="Writing: ${header.CamelFileName}"/>
-            <to uri="sftp://{{garethahealy.sftp.username}}@{{garethahealy.sftp.host}}:22/{{garethahealy.sftp.homedir}}?password={{garethahealy.sftp.password}}&amp;binary=true&amp;streamDownload=true&amp;preMove=.processing&amp;readLock=changed&amp;charset=utf-8"/>
+            <to uri="sftp://{{garethahealy.sftp.username}}@{{garethahealy.sftp.host}}:22/{{garethahealy.sftp.homedir}}?password={{garethahealy.sftp.password}}&amp;streamDownload=true&amp;preMove=.processing&amp;readLock=changed&amp;charset=utf-8"/>
         </route>
 
     </camelContext>
