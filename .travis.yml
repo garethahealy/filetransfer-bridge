@@ -23,8 +23,8 @@ install:
 before_script:
 - mvn dependency:resolve-plugins dependency:resolve -Prelease-ossrh -s configuration/settings.xml -B
 script:
-- mvn clean install -B
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -B
+- mvn clean install -s configuration/settings.xml -B
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -s configuration/settings.xml -B
 deploy:
   provider: script
   script: bash .travis/deploy.sh
