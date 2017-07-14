@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <mirrors>
+        <mirror>
+            <id>rh-ga-mirror-repository</id>
+            <name>Red Hat GA repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <mirrorOf>*,!rh-ea-repository,!central</mirrorOf>
+        </mirror>
+    </mirrors>
+
+    <profiles>
+        <profile>
+            <id>rh-repository</id>
+            <repositories>
+                <repository>
+                    <id>rh-ga-repository</id>
+                    <name>Red Hat GA repository</name>
+                    <url>https://maven.repository.redhat.com/ga/</url>
+                    <releases>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </repository>
+                <repository>
+                    <id>rh-ea-repository</id>
+                    <name>Red Hat EA repository</name>
+                    <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+                    <releases>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>rh-ga-repository</id>
+                    <name>Red Hat GA repository</name>
+                    <url>https://maven.repository.redhat.com/ga/</url>
+                    <releases>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>rh-ea-repository</id>
+                    <name>Red Hat EA repository</name>
+                    <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+                    <releases>
+                        <updatePolicy>never</updatePolicy>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                        <updatePolicy>never</updatePolicy>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>rh-repository</activeProfile>
+    </activeProfiles>
+
+</settings>
