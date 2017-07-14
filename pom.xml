@@ -12,7 +12,7 @@
     <groupId>com.garethahealy.filetransfer-bridge</groupId>
     <artifactId>filetransfer-bridge</artifactId>
     <version>1.2.0-SNAPSHOT</version>
-    <name>File Transfer Bridge</name>
+    <name>GarethHealy :: File Transfer Bridge</name>
 
     <properties>
         <!-- maven plugin versions -->
